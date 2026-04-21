@@ -1,11 +1,15 @@
-%cell(X,Y).         % the cell (X,Y) belongs to the grid
-%area(X,Y,A).       % the cell (X,Y) belongs to area A
-%number(X,Y,N).     % the cell (X,Y) initially contains number N
-%goal(A,G).         % the goal number of area A is number G
+%cell(X,Y).
+%area(X,Y,A).
+%number(X,Y,N).
+%goal(A,G).
 
+% Identify cells that contain numbers
+num(X,Y) :- number(X,Y,_).
 
-%% Your code here
+% Each number moves to exactly one area cell
+{ target(X,Y,XX,YY) : area(XX,YY,A) } = 1 :- num(X,Y).
 
-
+% Movement must be in a straight line (same row or same column)
+:- target(X,Y,XX,YY), X != XX, Y != YY.
 
 #show target/4.
